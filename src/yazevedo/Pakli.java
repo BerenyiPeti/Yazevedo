@@ -1,39 +1,59 @@
 package yazevedo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pakli {
-    private List<Kartya> pakli;
 
-    public Pakli(List<Kartya> pakli) {
-        this.pakli = pakli;
-    }
+    private ArrayList<Kartya> pakli;
 
-    
     public Pakli() {
-        feltolt();
+        this.pakli = feltolt();
+    }
+
+    public ArrayList<Kartya> feltolt() {
+        ArrayList<Kartya> kartyak = new ArrayList<>();
+        
+        int ijjaszok = 1;
+        int papok = 3;
+        int harcosok = 3;
+        int lovagok = 2;
+        int lekvarok = 2;
+        int kiralyok = 1;
+        int kiralyfik = 1;
+        int milulu = 1;
+        
+        kartyaHozzaad(ijjaszok, ijasz(), kartyak);
+        //kartyaHozzaad(papok, ijasz(), kartyak);
+        
+
+        return kartyak;
+
     }
     
-    
-    
-    public void feltolt() {
-        for (int i = 0; i < 5; i++) {
-            ijasz();
+    public void kartyaHozzaad(int db, Kartya kartya, ArrayList<Kartya> kartyak) {
+        for (int i = 0; i < db; i++) {
+            kartyak.add(kartya);
         }
-        
-        
     }
-    
-    public void ijasz() {
-        this.pakli.add(new Kartya(1, "Íjász", "Válassz valakit, "
+
+    public Kartya ijasz() {
+        return new Kartya(1, "Íjász", "Válassz valakit, "
                 + "mondj egy számot 2 és 8 között. Ha az a szám van a kezében, "
-                + "az ellenfeled kiesett."));
+                + "az ellenfeled kiesett");
     }
 
     public List<Kartya> getPakli() {
         return pakli;
     }
-    
-    
-   
+
+    public void pakliKiir() {
+        for (Kartya kartya : pakli) {
+            System.out.println("--------------------------------");
+            System.out.println("Kártya száma: " + kartya.getSzam());
+            System.out.println("Kártya neve: " + kartya.getNev());
+            System.out.println("Kártya képessége: " +kartya.getKepesseg());
+        }
+    }
+
 }
