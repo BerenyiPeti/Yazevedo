@@ -1,9 +1,11 @@
 package yazevedo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
+    Scanner sc = new Scanner(System.in);
     private final Pakli pakli = new Pakli();
     private Kartya eldobottKartya;
     private final ArrayList<Kartya> jatekosKez = new ArrayList<>(2);
@@ -16,39 +18,65 @@ public class Main {
     }
 
     public void jatek() {
-
         pakli.megkever();
-        //pakli.pakliKiir();
 
-        jatekosKez.add(pakli.getKartya(0));
-        robot1Kez.add(pakli.getKartya(1));
-        robot2Kez.add(pakli.getKartya(2));
-        pakli.kartyaKivesz(0);
-        pakli.kartyaKivesz(1);
-        pakli.kartyaKivesz(2);
+//MINDENKI HÚZ A LEGELEJÉN
+        
+        huzas(jatekosKez);
+        huzas(robot1Kez);
+        huzas(robot2Kez);
 
+//KIÍRÁS        
+        
         kiir();
-//        System.out.println("Játékos:");
-//        mutat(jatekosKez);
-//        System.out.println("Robot1:");
-//        mutat(robot1Kez);
-//        System.out.println("Robot2:");
-//        mutat(robot2Kez);
+        
+//JÁTÉKOS HÚZ
+        System.out.println("Húzáshoz nyomd meg az ENTER-t!");
+        sc.nextLine();
+        huzas(jatekosKez);
+        kiir();
+        
+//JÁTÉKOS DOB
+
+        System.out.println("Írd be, melyik kártyát szeretnéd eldobni!");
+        dobas(jatekosKez, sc.nextInt()); 
+        kiir();
+        
+//ROBOT1 HÚZ, MAJD DOB
+        System.out.println("Folytatáshoz nyomd meg az ENTER-t!");
+        sc.nextLine();
+        
+        huzas(robot1Kez);
+        kiir();
     }
 
     public void kiir() {
         System.out.println("Húzó kártyák száma: " + pakli.getPakli().size());
+        
         if (eldobottKartya == null) {
             System.out.println("Eldobott kártya: " + "-");
         } else {
             System.out.println("Eldobott kártya: " + eldobottKartya.getSzam());
         }
+        
         System.out.println("--------------------");
-        System.out.println("robot1 kártyái: ?");
-        System.out.println("robot2 kártyái: ?");
+        if (robot1Kez.size() == 2) {
+            System.out.println("robot1 kártyái: ? ?");
+        } else {
+            System.out.println("robot1 kártyái: ?");
+        }
+        
+        if (robot2Kez.size() == 2) {
+            System.out.println("robot2 kártyái: ? ?");
+        } else {
+            System.out.println("robot2 kártyái: ?");
+        }
+        
         System.out.println("");
         System.out.print("A te kártyáid: ");
         mutat(jatekosKez);
+        System.out.println("");
+        System.out.println("");
     }
 
     public void mutat(ArrayList<Kartya> kez) {
@@ -56,6 +84,17 @@ public class Main {
             System.out.print(kartya.getSzam() + " ");
         }
     }
+
+    public void huzas(ArrayList<Kartya> jatekos) {
+        jatekos.add(pakli.getKartya(0));
+        pakli.kartyaKivesz(0);
+    }
+    
+    public void dobas(ArrayList<Kartya> jatekos, int kartya) {
+        eldobottKartya = jatekos.get(kartya);
+        jatekos.remove(kartya);
+    }
+   
 
 //    public ArrayList<Kartya> getKez(ArrayList<Kartya> kez) {
 //        for (Kartya kartya : kez) {

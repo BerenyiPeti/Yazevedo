@@ -70,6 +70,13 @@ public class Pakli {
         }
     }
     
+    public void pakliKiirSzam() {
+        System.out.println("Kártyák száma: " + pakli.size());
+        for (Kartya kartya : pakli) {
+            System.out.println("Kártya száma: " + kartya.getSzam());
+        }
+    }
+    
     public Kartya revolver() {
         return new Kartya(1, "Revolver", "Válassz valakit, "
                 + "mondj egy számot 2 és 8 között. Ha az a szám van a kezében, "
